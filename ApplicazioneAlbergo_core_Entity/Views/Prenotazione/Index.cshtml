@@ -1,14 +1,22 @@
-﻿@model IEnumerable<ApplicazioneAlbergo_core_Entity.Models.Prenotazione>
+﻿
+@model IEnumerable<ApplicazioneAlbergo_core_Entity.Models.Prenotazione>
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
+@if (User.Identity.IsAuthenticated)
+{
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+    if (User.IsInRole("admin"))
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -60,11 +68,29 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Pensione.TipoPensione)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPrenotazione">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPrenotazione">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPrenotazione">Delete</a>
-            </td>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+
+                    if (User.IsInRole("admin"))                 
+                    {
+                         <td>
+                          <a asp-action="Edit" asp-route-id="@item.IdPrenotazione">Edit</a> |
+                          <a asp-action="Details" asp-route-id="@item.IdPrenotazione">Details</a> |
+                          <a asp-action="Delete" asp-route-id="@item.IdPrenotazione">Delete</a>
+                        </td> 
+                    }
+                    
+
+                <td>
+                         
+                          <a asp-action="Details" asp-route-id="@item.IdPrenotazione">Details</a> 
+                        
+                </td>
+
+                }
+
+            
         </tr>
 }
     </tbody>

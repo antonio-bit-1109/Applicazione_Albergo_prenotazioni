@@ -3,6 +3,7 @@ using ApplicazioneAlbergo_core_Entity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ApplicazioneAlbergo_core_Entity.Controllers
 {
@@ -19,6 +20,14 @@ namespace ApplicazioneAlbergo_core_Entity.Controllers
         // GET: ClienteController
         public ActionResult Index()
         {
+            string nomeUtente = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            if (nomeUtente != "admin")
+            {
+                TempData["Errore"] = "non hai il premesso per accedere a questa sezione.";
+                return RedirectToAction("Index", "Login");
+            }
+
             var tuttiClienti = _db.Clienti.ToList();
             return View(tuttiClienti);
         }

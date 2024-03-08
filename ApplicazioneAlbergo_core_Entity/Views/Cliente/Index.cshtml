@@ -64,43 +64,7 @@
     </tbody>
 </table>
 
-
-<div class="row align-items-center">
-    <div class="d-flex flex-column gap-3">
-		    <div class="col-12">
-			    <div>
-				    <button class="btn btn-primary" id="getFetch">prenotaz In base al CF </button>
-			    </div>
-		    </div>
-		    <div class="col-4">
-			    <div>
-				    <input id="input_cf" class="form-control" type="text" />
-			    </div>
-		    </div>
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <table id="myTable" class="table table-striped">
-            <thead>
-                <tr>
-
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cognome</th>
-                    <th scope="col">Data Inizio Prenotazione</th>
-                    <th scope="col">Data Fine Prenotazione</th>
-                    <th scope="col">CF</th>
-                </tr>
-            </thead>
-
-            <tbody id="mytbody">
-            </tbody>
-
-        </table>
-    </div>
-</div>
+<partial name="_partial_prenotaz_cf"></partial>
 
 
 @section Scripts {
