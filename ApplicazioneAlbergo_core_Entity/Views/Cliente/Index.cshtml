@@ -63,3 +63,120 @@
 }
     </tbody>
 </table>
+
+
+<div class="row align-items-center">
+    <div class="d-flex flex-column gap-3">
+		    <div class="col-12">
+			    <div>
+				    <button class="btn btn-primary" id="getFetch">prenotaz In base al CF </button>
+			    </div>
+		    </div>
+		    <div class="col-4">
+			    <div>
+				    <input id="input_cf" class="form-control" type="text" />
+			    </div>
+		    </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table id="myTable" class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cognome</th>
+                    <th scope="col">Data Inizio Prenotazione</th>
+                    <th scope="col">Data Fine Prenotazione</th>
+                    <th scope="col">CF</th>
+                </tr>
+            </thead>
+
+            <tbody id="mytbody">
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        let data = [];
+        const tbody = document.getElementById("mytbody")
+        tbody.innerHTML = "";
+    
+
+        const Myfetch = (nameAction , Codicefiscale) => {
+            const options = {
+                method: "GET",
+                headers: {
+                    // "Content-Type": "application/json",
+                    /*  Authorization: `Bearer ${TokenCommenti} `, */
+                },
+            };
+
+
+            fetch(`Cliente/${nameAction}/?codiceFiscale=${Codicefiscale}`, options)
+                .then((response) => {
+                    if (!response.ok) {
+                        if (response.status > 400 && response.status < 500) {
+                            if (response.status === 429) {
+                                throw new Error("429 INFAME PER TE TANTE COSE BRUTTE");
+                            } else {
+                                throw new Error("STAI CAPPELLANDO , RIGUARDA QUELLO CHE HAI SCRITTO");
+                            }
+                        }
+                        if (response.status > 500 && response.status < 600) {
+                            throw new Error("SERVER SPOMPATO, NON FUNZIA??");
+                        }
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+
+                    for (let i = 0; i < data.length; i++) {
+                        let objDato = data[i];
+                        let tr = document.createElement('tr');
+                        tbody.appendChild(tr);
+
+                        let td0 = document.createElement('td');
+                        let td1 = document.createElement('td');
+                        let td2 = document.createElement('td');
+                        let td3 = document.createElement('td');
+                        let td4 = document.createElement('td');
+                        td0.textContent = objDato.nome;
+                        td1.textContent = objDato.cognome;
+                        td2.textContent = objDato.dataInizioPrenotazione;
+                        td3.textContent = objDato.dataFinePrenotazione;
+                        td4.textContent = objDato.codiceFiscale;
+                        tr.appendChild(td0);
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                    }
+
+                })
+                .catch((error) => {
+                    console.error('Errore:', error);
+                })
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const bottonefetch = document.getElementById('getFetch');
+            bottonefetch.addEventListener('click', () => {
+                tbody.innerHTML = "";
+                    const CF = document.getElementById("input_cf").value
+                Myfetch("PrenotazioniCodiceFiscale", CF);
+            });
+
+        })
+    </script>
+}

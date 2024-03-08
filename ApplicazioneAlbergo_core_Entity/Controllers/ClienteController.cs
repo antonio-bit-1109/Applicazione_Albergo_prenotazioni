@@ -2,6 +2,7 @@
 using ApplicazioneAlbergo_core_Entity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApplicazioneAlbergo_core_Entity.Controllers
 {
@@ -107,6 +108,33 @@ namespace ApplicazioneAlbergo_core_Entity.Controllers
                 TempData["Errore"] = "Errore nell eliminazione del cliente.";
                 return RedirectToAction("Index");
             }
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PrenotazioniCodiceFiscale(string? codiceFiscale)
+        {
+
+            var prenotazioniInbaseAlCodiceFiscale = await _db.Prenotazioni
+                .Include(p => p.Cliente)
+                .Where(p => p.Cliente.CodiceFiscale == codiceFiscale)
+                .Select(p => new
+                {
+                    p.Cliente.Nome,
+                    p.Cliente.Cognome,
+                    p.Cliente.CodiceFiscale,
+                    p.DataInizioPrenotazione,
+                    p.DataFinePrenotazione,
+                }).ToListAsync();
+
+            //string query = $"SELECT * FROM Clienti AS cl INNER JOIN Prenotazioni AS pre ON cl.IdCliente = pre.IdCliente WHERE CodiceFiscale = {codiceFiscale}";
+            ////var nomeParam = new SqlParameter("@param", codiceFiscale);
+
+            //var prenotazioniInbaseAlCodiceFiscale = await _db.Prenotazioni.FromSqlRaw(query).ToListAsync();
+
+            //string query = "select nome , cognome , codicefiscale , DataInizioprenotazione , DataFinePrenotazione FROM Clienti as cl inner join Prenotazioni as pre on cl.IdCliente = pre.IdCliente where CodiceFiscale = 'ewqewqeqfffff' "
+
+            return Json(prenotazioniInbaseAlCodiceFiscale);
 
         }
     }

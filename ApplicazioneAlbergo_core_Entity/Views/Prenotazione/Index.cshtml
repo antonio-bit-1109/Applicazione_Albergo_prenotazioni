@@ -71,36 +71,7 @@
 </table>
 
 
-    <div class="row">
-        <div class="col-6">
-            <div>
-                <button class="btn btn-primary" id="getFetch">Prenotazioni All Inclusive</button>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <table id="myTable" class="table table-striped">
-                <thead>
-                    <tr>
-
-                        <th scope="col">IdPrenotazione</th>
-                        <th scope="col">DataInizioPrenotazione</th>
-                        <th scope="col">DataFinePrenotazione</th>
-                        <th scope="col">Acconto</th>
-                        <th scope="col">TipoPensione</th>
-                    </tr>
-                </thead>
-
-            <tbody id="mytbody">
-                 
-            </tbody>
-              
-            </table>
-        </div>
-    </div>
-
+<partial name="_prenotAll_Inclusive" />
 
 
 @section Scripts {
@@ -170,7 +141,10 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             const bottonefetch = document.getElementById('getFetch');
-            bottonefetch.addEventListener('click', () => { Myfetch("FetchTuttePrenotaz_PensCompleta") });
+            bottonefetch.addEventListener('click', () => { 
+                tbody.innerHTML = "";
+                Myfetch("FetchTuttePrenotaz_PensCompleta"); 
+            });
 
         })
     </script>
