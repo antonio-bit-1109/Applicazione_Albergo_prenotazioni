@@ -1,0 +1,81 @@
+﻿@model ApplicazioneAlbergo_core_Entity.Models.Pensione
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Pensione</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TipoPensione" class="control-label"></label>
+               @*  <input asp-for="TipoPensione" class="form-control" /> *@
+                <select id="selectList" asp-for="TipoPensione" class="form-control">
+                    <option value="Mezza Pensione">Scegli il tipo di pensione...</option>
+                    <option value="Nessuna">Nessuna</option>
+                    <option value="Mezza Pensione">Mezza Pensione</option>
+                    <option value="Pensione Completa">Pensione Completa</option>
+                    <option value="Solo Colazione">Solo Colazione</option>
+                    <option value="All Inclusive">All Inclusive</option>
+               </select>
+                <span asp-validation-for="TipoPensione" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prezzo" class="control-label"></label>
+                <input readonly id="input_prezzo" asp-for="Prezzo" class="form-control" />
+                <span asp-validation-for="Prezzo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	<script>
+        window.onload = () => {
+
+            const selectList = document.getElementById("selectList");
+            const inputPrezzo = document.getElementById("input_prezzo");
+
+
+            selectList.addEventListener("change" , () => {
+
+                if (selectList.value === "Nessuna") {
+                    //qualcosa
+                    inputPrezzo.value = 0
+                }
+
+                if (selectList.value === "Mezza Pensione") {
+                    //qualcosa
+                    inputPrezzo.value = 25
+                }
+
+                if (selectList.value === "Pensione Completa") {
+                    //qualcosa
+                    inputPrezzo.value = 45
+                }
+
+                if (selectList.value === "Solo Colazione") {
+                    //qualcosa
+                    inputPrezzo.value = 65
+                }
+
+                if (selectList.value === "All Inclusive") {
+                    //qualcosa
+                    inputPrezzo.value = 85
+                }
+            })
+        }
+    </script>
+}

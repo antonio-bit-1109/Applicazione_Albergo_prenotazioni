@@ -1,0 +1,73 @@
+﻿@model ApplicazioneAlbergo_core_Entity.Models.Camera
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Camera</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdCamera" />
+            <div class="form-group">
+                <label asp-for="NumeroCamera" class="control-label"></label>
+                <input asp-for="NumeroCamera" class="form-control" />
+                <span asp-validation-for="NumeroCamera" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipoCamera" class="control-label"></label>
+                @* <input asp-for="TipoCamera" class="form-control" /> *@
+                <select id="select" asp-for="TipoCamera" class="form-control">
+                    <option> seleziona una tipologia di camera...</option>
+                    <option value="singola"> singola</option>
+                    <option value="Doppia"> Doppia</option>
+                    <option value="Tripla"> Tripla</option>
+                    <option value="Deluxe"> Deluxe</option>
+                </select>
+                <span asp-validation-for="TipoCamera" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prezzo" class="control-label"></label>
+                <input disabled id="input_prezzo" asp-for="Prezzo" class="form-control" />
+                <span asp-validation-for="Prezzo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+
+            $("#select").change(function () {
+
+                if ($(this).val() == "singola") {
+                    $("#input_prezzo").val(50);
+                }
+                if ($(this).val() == "Doppia") {
+                    $("#input_prezzo").val(70);
+                }
+                if ($(this).val() == "Tripla") {
+                    $("#input_prezzo").val(90);
+                }
+                if ($(this).val() == "Deluxe") {
+                    $("#input_prezzo").val(120);
+                }
+
+            });
+        });
+    </script>
+
+}
