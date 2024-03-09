@@ -50,44 +50,44 @@ else
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInizioPrenotazione)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFinePrenotazione)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Acconto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cliente.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Camera.TipoCamera)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Servizio.DescrizioneServizio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pensione.TipoPensione)
-            </td>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInizioPrenotazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataFinePrenotazione)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Acconto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Camera.TipoCamera)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Servizio.DescrizioneServizio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pensione.TipoPensione)
+                </td>
 
-                @if (User.Identity.Name != "admin")
-                {
+                    @if (User.Identity.Name != "admin")
+                    {
 
-                }
-                else
-                {
-                       <td>
-                          <a asp-action="Edit" asp-route-id="@item.IdPrenotazione">Edit</a> |
-                          <a asp-action="Details" asp-route-id="@item.IdPrenotazione">Details</a> |
-                          <a asp-action="Delete" asp-route-id="@item.IdPrenotazione">Delete</a>
-                        </td>
-                }                  
-        </tr>
-}
+                    }
+                    else
+                    {
+                           <td class="d-flex flex-column">
+                              <a asp-action="Edit" asp-route-id="@item.IdPrenotazione">Edit</a> 
+                              <a asp-action="Delete" asp-route-id="@item.IdPrenotazione">Delete</a> 
+                              <a asp-action="Details" asp-route-id="@item.IdPrenotazione">Dettagli e costo Prenotazione</a> 
+                            </td>
+                    }                  
+            </tr>
+    }
     </tbody>
 </table>
 
